@@ -84,3 +84,18 @@
       host={{ item.public_ip }}
       port=22
     with_items: ec2_info.tagged_instances
+- hosts: broker
+  sudo: yes
+  tasks:
+  - name: Copy FreeDNS update script.
+    template: src=afraid.aws.sh.j2 dest=/etc/cron.d/afraid.aws.sh owner=root mode=500
+    when: freedns_update is defined
+  - name: Setup FreeDNS cron job.
+    cron: minute="*/10" job="/etc/cron.d/afraid.aws.sh >/dev/null" name="FreeDNS update"
+    when: freedns_update is defined
+  - name: Delete FreeDNS script old IP file.
+    file: path=/tmp/ip.tmpfile state=absent
+  - name: Run FreeDNS update script.
+    command: /etc/cron.d/afraid.aws.sh
+    when: freedns_update is defined
+

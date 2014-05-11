@@ -9,7 +9,13 @@
     # Region to create instance inside.
     region:        "us-west-2"
     # Elastic IP to assign to instance.
-    elastic_ip:    "0.0.0.0"
+    # Optional, use this if you own a domain and want to assign a static IP to the server.
+    # You must create the elastic IP ahead of time on AWS.
+    #elastic_ip:     "0.0.0.0"
+    # FreeDNS.afraid.org update URL.
+    # Optional, use this if you want to use a dynamic DNS subdomain from freedns.afraid.org.
+    # Specify the direct URL for updates of a desired subdomain.
+    #freedns_update: "YOUR FREEDNS DIRECT UPDATE URL"
 # Generate SSL certificates for MQTT communication.
 - include: certificates.yml
   vars:
