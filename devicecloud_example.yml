@@ -6,27 +6,10 @@
     # Access keys for user with 'power user' access to AWS (i.e. can create instances).
     access_key:    "YOUR ACCESS KEY"
     secret_key:    "YOUR SECRET KEY"
-    # Name of keypair to associate with instance.  Must have this keypair PEM saved locally.
-    keypair:       "devicecloud"
-    # Security group name to associate with instance.  This group should have ports 22 and 8883 open.
-    group:         "devicecloud"
     # Region to create instance inside.
     region:        "us-west-2"
-    # Instance type.  Keep this as micro unless you know you need (and will pay for) a larger instance.
-    instance_type: "t1.micro"
-    # Image name for an Ubuntu 14.04 LTS 'trusty' 64bit machine.
-    # Find instance name from:
-    #   https://cloud-images.ubuntu.com/locator/ec2/
-    # Pick the ebs instance type if using the micro instance!
-    image:         "ami-6ac2a85a"
     # Elastic IP to assign to instance.
     elastic_ip:    "0.0.0.0"
-    # Username of the account to use for installation on the server.
-    # Keep this the default 'ubuntu' unless you've changed the AMI image.
-    username:      "ubuntu"
-    # Location of the private key PEM file to identify the user.
-    # Make sure this file is private, i.e. chmod 600 key.pem
-    private_key:   "devicecloud.pem"
 # Generate SSL certificates for MQTT communication.
 - include: certificates.yml
   vars:
