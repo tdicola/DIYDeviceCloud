@@ -1,0 +1,20 @@
+---
+- hosts: local
+  tasks:
+  # These commands are based on the mosquitto man page: http://mosquitto.org/man/mosquitto-tls-7.html
+  - name: Create certs subdirectory.
+    file: path=./certs/ state=directory
+  - name: Generate certificate authority.
+    command: openssl req -new -nodes -x509 -days {{ cert_days }} -subj "/CN={{ ca_cn }}" -extensions v3_ca -keyout ./certs/ca.key -out ./certs/ca.crt creates=./certs/ca.crt
+  - name: Generate server key.
+    command: openssl genrsa -out ./certs/server.key 2048 creates=./certs/server.key
+  - name: Generate server key signing request.
+    command: openssl req -out ./certs/server.csr -subj "/CN={{ server_cn }}" -key ./certs/server.key -new creates=./certs/server.csr
+  - name: Sign server certificate.
+    command: openssl x509 -req -in ./certs/server.csr -CA ./certs/ca.crt -CAkey ./certs/ca.key -CAcreateserial -out ./certs/server.crt -days {{ cert_days }} creates=./certs/server.crt
+  - name: Generate client key.
+    command: openssl genrsa -out ./certs/client.key 2048 creates=./certs/client.key
+  - name: Generate client key signing request.
+    command: openssl req -out ./certs/client.csr -subj "/CN={{ client_cn }}" -key ./certs/client.key -new creates=./certs/client.csr
+  - name: Sign client certificate.
+    command: openssl x509 -req -in ./certs/client.csr -CA ./certs/ca.crt -CAkey ./certs/ca.key -CAcreateserial -out ./certs/client.crt -days {{ cert_days }} creates=./certs/client.crt

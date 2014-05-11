@@ -1,0 +1,18 @@
+---
+- hosts: broker
+  sudo: yes
+  tasks:
+  - name: Ensure mosquitto PPA is available.
+    apt_repository: repo='ppa:mosquitto-dev/mosquitto-ppa' state=present update_cache=yes
+  - name: Install mosquitto.
+    apt: name=mosquitto state=latest
+  - name: Copy CA cert to server.
+    copy: src=./certs/ca.crt dest=/etc/mosquitto/ca_certificates/
+  - name: Copy server cert to server.
+    copy: src=./certs/server.crt dest=/etc/mosquitto/certs/
+  - name: Copy server key to server.
+    copy: src=./certs/server.key dest=/etc/mosquitto/certs/
+  - name: Copy mosquitto.conf to server.
+    copy: src=mosquitto.conf.broker dest=/etc/mosquitto/mosquitto.conf
+  - name: Restart mosquitto service.
+    service: name=mosquitto state=restarted enabled=yes

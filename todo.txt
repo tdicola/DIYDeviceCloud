@@ -1,0 +1,1 @@
+- Make a script to automatically create the IAM keys, security group, elasitc IP, etc. in AWS.

@@ -1,0 +1,15 @@
+# Local host is used for tasks which run on the deployment machine, like
+# Amazon EC2 provisioning and certificate creation.
+# Don't change this group.
+[local]
+localhost ansible_connection=local
+
+# Broker host can be an explicit server host/IP.
+# Leave empty if provisioning in EC2 or other cloud service.
+[broker]
+
+# Device host is a list of device IPs and connection details.
+[device]
+
+# Bridge host is a list of bridge machine IPs and connection details.
+[bridge]
