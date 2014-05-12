@@ -1,0 +1,14 @@
+---
+- hosts: devices
+  sudo: yes
+  tasks:
+  - name: Install mosquitto clients.
+    apt: name=mosquitto-clients state=latest
+  - name: Install mosquitto python bindings.
+    apt: name=python-mosquitto state=latest
+  - name: Copy CA cert to device.
+    copy: src=./certs/ca.crt dest=/etc/mosquitto/ca_certificates/
+  - name: Copy client cert to device.
+    copy: src=./certs/client.crt dest=/etc/mosquitto/certs/
+  - name: Copy client key to device.
+    copy: src=./certs/client.key dest=/etc/mosquitto/certs/
