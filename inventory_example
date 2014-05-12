@@ -8,8 +8,11 @@ localhost ansible_connection=local
 # Leave empty if provisioning in EC2 or other cloud service.
 [broker]
 
-# Device host is a list of device IPs and connection details.
+# Device host is a list of device hostname/IPs.
+# Add ansible_ssh_user parameter to specify user password.
 [device]
+# Example Raspberry Pi device:
+#raspberrypi ansible_ssh_user=pi
 
 # Bridge host is a list of bridge machine IPs and connection details.
 [bridge]

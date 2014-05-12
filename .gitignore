@@ -3,3 +3,4 @@ certs
 devicecloud.yml
 *.pem
 .srl
+inventory
