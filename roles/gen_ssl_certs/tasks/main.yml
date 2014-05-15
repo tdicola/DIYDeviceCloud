@@ -1,0 +1,6 @@
+---
+# These commands are based on the mosquitto man page: http://mosquitto.org/man/mosquitto-tls-7.html
+- name: Create SSL directory.
+  file: path={{ ssl_dir }} state=directory
+- name: Generate and sign web SSL certificate.
+  command: 'openssl req -x509 -nodes -days {{ cert_days }} -subj "/CN={{ broker_name }}" -newkey rsa:2048 -keyout {{ ssl_dir }}/web.key -out {{ ssl_dir }}/web.crt creates={{ ssl_dir }}/web.crt'

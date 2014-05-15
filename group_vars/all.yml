@@ -3,3 +3,5 @@
 ssl_dir: "{{ inventory_dir }}/security/ssl"
 # Location to store generated SSH keys.
 ssh_dir: "{{ inventory_dir }}/security/ssh"
+# Number of days generated certs should be valid.
+cert_days: 3650

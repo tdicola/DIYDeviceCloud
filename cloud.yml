@@ -4,6 +4,7 @@
   roles:
   - provision_ec2
   - gen_mqtt_certs
+  - gen_ssl_certs
 - hosts: broker
   sudo: yes
   roles:
