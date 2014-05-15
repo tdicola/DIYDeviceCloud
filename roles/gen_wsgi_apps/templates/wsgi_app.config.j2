@@ -1,0 +1,11 @@
+CONFIG = {
+    # 'mode': 'wsgi',
+    'working_dir': '{{ wsgi_server_root }}/{{ item[1] }}',
+    # 'python': '/usr/bin/python',
+    'args': (
+        '--bind=127.0.0.1:{{ gunicorn_app_port + item[0] }}',
+        '--workers=3',
+        '--timeout=60',
+        '{{ item[1] }}:app',
+    ),
+}

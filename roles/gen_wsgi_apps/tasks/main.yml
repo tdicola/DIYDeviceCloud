@@ -1,0 +1,9 @@
+---
+- name: Make sure gunicorn configuration directory exists.
+  file: dest={{ gunicorn_config }} state=directory
+- name: Get list of WSGI apps.
+  shell: find "{{ wsgi_apps }}" -mindepth 1 -maxdepth 1 -type d | sed "s|.*/\(.*\)|\1|"
+  register: apps
+- name: Generate gunicorn configs.
+  template: src=wsgi_app.config.j2 dest={{ gunicorn_config }}/{{ item[1] }}.conf
+  with_indexed_items: apps.stdout_lines

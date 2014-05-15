@@ -1,6 +1,8 @@
 .DS_Store
 _build
-security
+security/*
 *.pem
 .srl
 inventory
+staging/*
+wsgi_apps/*

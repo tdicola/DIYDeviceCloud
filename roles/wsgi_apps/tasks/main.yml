@@ -1,0 +1,17 @@
+---
+- name: Install gunicorn.
+  apt: name=gunicorn state=latest
+- name: Synch WSGI apps.
+  synchronize: src={{ wsgi_apps }}/ dest={{ wsgi_server_root }}/ recursive=yes mode=push delete=yes
+- name: Install python PIP.
+  apt: name=python-pip state=latest
+- name: Get list of PIP package dependencies.
+  command: cat {{ wsgi_server_root }}/pip_packages
+  register: packages
+- name: Install PIP packages.
+  pip: name={{ item }}
+  with_items: packages.stdout_lines
+- name: Copy gunicorn config.
+  copy: src={{ gunicorn_config }}/ dest=/etc/gunicorn.d/
+- name: Restart gunicorn.
+  service: name=gunicorn state=restarted enabled=yes

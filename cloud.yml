@@ -5,6 +5,7 @@
   - provision_ec2
   - gen_mqtt_certs
   - gen_ssl_certs
+  - gen_wsgi_apps
 - hosts: broker
   sudo: yes
   roles:
@@ -14,3 +15,4 @@
   - mqtt_client/ubuntu
   - web_server
   - smtp_email
+  - wsgi_apps

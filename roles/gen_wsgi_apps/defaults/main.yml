@@ -1,0 +1,5 @@
+---
+# First port to use with gunicorn WSGI apps.
+# Apps beyond the first one will use subsequent ports, i.e. starting at 8000
+# and configuring 5 apps will mean ports 8000-8004 are used by gunicorn.
+gunicorn_app_port: 8000
