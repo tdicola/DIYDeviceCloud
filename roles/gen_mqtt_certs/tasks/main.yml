@@ -1,0 +1,18 @@
+---
+# These commands are based on the mosquitto man page: http://mosquitto.org/man/mosquitto-tls-7.html
+- name: Create SSL directory.
+  file: path={{ ssl_dir }} state=directory
+- name: Generate certificate authority.
+  command: openssl req -new -nodes -x509 -days {{ cert_days }} -subj "/CN={{ ca_cn }}" -extensions v3_ca -keyout "{{ ssl_dir }}/mqtt_ca.key" -out "{{ ssl_dir }}/mqtt_ca.crt" creates={{ ssl_dir }}/mqtt_ca.crt
+- name: Generate server key.
+  command: openssl genrsa -out "{{ ssl_dir }}/mqtt_server.key" 2048 creates={{ ssl_dir }}/mqtt_server.key
+- name: Generate server key signing request.
+  command: openssl req -out "{{ ssl_dir }}/mqtt_server.csr" -subj "/CN={{ broker_name }}" -key "{{ ssl_dir }}/mqtt_server.key" -new creates={{ ssl_dir }}/mqtt_server.csr
+- name: Sign server certificate.
+  command: openssl x509 -req -in "{{ ssl_dir }}/mqtt_server.csr" -CA "{{ ssl_dir }}/mqtt_ca.crt" -CAkey "{{ ssl_dir }}/mqtt_ca.key" -CAcreateserial -out "{{ ssl_dir }}/mqtt_server.crt" -days {{ cert_days }} creates={{ ssl_dir }}/mqtt_server.crt
+- name: Generate client key.
+  command: openssl genrsa -out "{{ ssl_dir }}/mqtt_client.key" 2048 creates={{ ssl_dir }}/mqtt_client.key
+- name: Generate client key signing request.
+  command: openssl req -out "{{ ssl_dir }}/mqtt_client.csr" -subj "/CN={{ client_cn }}" -key "{{ ssl_dir }}/mqtt_client.key" -new creates={{ ssl_dir }}/mqtt_client.csr
+- name: Sign client certificate.
+  command: openssl x509 -req -in "{{ ssl_dir }}/mqtt_client.csr" -CA "{{ ssl_dir }}/mqtt_ca.crt" -CAkey "{{ ssl_dir }}/mqtt_ca.key" -CAcreateserial -out "{{ ssl_dir }}/mqtt_client.crt" -days {{ cert_days }} creates={{ ssl_dir }}/mqtt_client.crt

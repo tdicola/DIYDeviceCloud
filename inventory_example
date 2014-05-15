@@ -1,3 +1,31 @@
+# Global configuration.
+[all:vars]
+# Access keys for user with 'power user' access to AWS (i.e. can create instances).
+access_key="YOUR_ACCESS_KEY"
+secret_key="YOUR_SECRET_KEY"
+
+# AWS region to use for creating server.
+region="us-west-2"
+
+# Fully qualified domain name of broker server.
+# Can be an explicit domain name, or dynamic DNS name.  
+# If not set the public DNS name of the Amazon EC2 machine will be used (it is ugly!).
+broker_name=yourbroker.diydevicecloud.net
+
+# Common name of MQTT and SSL signing certificates.
+# Set to your name.
+ca_cn="YOUR NAME"
+
+# FreeDNS.afraid.org update URL.
+# Optional, use this if you want to use a dynamic DNS subdomain from freedns.afraid.org.
+# Specify the direct URL for updates of a desired subdomain.
+freedns_update="YOUR FREEDNS UPDATE URL"
+
+# Elastic IP to assign to instance.
+# Optional, use this if you own a domain and want to assign a static IP to the server.
+# You must create the elastic IP ahead of time on AWS.
+#elastic_ip="0.0.0.0"
+
 # Local host is used for tasks which run on the deployment machine, like
 # Amazon EC2 provisioning and certificate creation.
 # Don't change this group.

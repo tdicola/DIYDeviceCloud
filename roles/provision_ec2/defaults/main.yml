@@ -1,0 +1,15 @@
+---
+# Name of keypair to associate with instance.
+# You shouldn't need to change this.
+keypair:        "devicecloud"
+# Security group name to associate with instance.
+group:          "devicecloud"
+# Username of the account to use for installation on the server.
+# Keep this the default 'ubuntu' unless you've changed the AMI image.
+username:       "ubuntu"
+# Private key for access to the server through SSH.
+ssh_key:        "{{ ssh_dir }}/broker_ec2"
+ssh_key_public: "{{ ssh_key }}.pub"
+# Instance type.  
+# Keep this as micro unless you know you need (and will pay for) a larger instance.
+instance_type:  "t1.micro"

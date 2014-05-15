@@ -1,0 +1,11 @@
+---
+- hosts: local
+  gather_facts: False
+  roles:
+  - provision_ec2
+  - gen_mqtt_certs
+- hosts: broker
+  sudo: yes
+  roles:
+  - freedns
+  - mqtt_server

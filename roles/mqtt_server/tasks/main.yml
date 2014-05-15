@@ -1,0 +1,15 @@
+---
+- name: Ensure mosquitto PPA is available.
+  apt_repository: repo='ppa:mosquitto-dev/mosquitto-ppa' state=present update_cache=yes
+- name: Install mosquitto.
+  apt: name=mosquitto state=latest
+- name: Copy CA cert.
+  copy: "src={{ ssl_dir }}/mqtt_ca.crt dest=/etc/mosquitto/ca_certificates/"
+- name: Copy server cert.
+  copy: "src={{ ssl_dir }}/mqtt_server.crt dest=/etc/mosquitto/certs/"
+- name: Copy server key.
+  copy: "src={{ ssl_dir }}/mqtt_server.key dest=/etc/mosquitto/certs/"
+- name: Copy mosquitto.conf.
+  copy: src=mosquitto.conf dest=/etc/mosquitto/mosquitto.conf
+- name: Restart mosquitto service.
+  service: name=mosquitto state=restarted enabled=yes

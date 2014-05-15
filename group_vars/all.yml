@@ -1,0 +1,5 @@
+---
+# Location to store generated SSL certs and keys.
+ssl_dir: "{{ inventory_dir }}/security/ssl"
+# Location to store generated SSH keys.
+ssh_dir: "{{ inventory_dir }}/security/ssh"
