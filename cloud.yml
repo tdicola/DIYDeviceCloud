@@ -14,5 +14,6 @@
   - mqtt_client/common
   - mqtt_client/ubuntu
   - web_server
+  - security
   - smtp_email
   - wsgi_apps

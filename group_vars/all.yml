@@ -15,6 +15,7 @@ wsgi_server_root: /usr/local/share/wsgi_apps
 staging_root: "{{ inventory_dir }}/staging"
 # Location to read gunicorn configuration files.
 # These will be copied to the /etc/gunicorn.d/ location on the server.
-gunicorn_config: "{{ staging_root }}/gunicorn.d"
+gunicorn_staging: "{{ staging_root }}/gunicorn.d"
 # Location to read nginx configuration files.
-# These will be copied to the /etc/nginx
+# These will be copied to the /etc/nginx/sites-available/ location and linked to sites-enabled.
+nginx_staging: "{{ staging_root }}/nginx_sites"

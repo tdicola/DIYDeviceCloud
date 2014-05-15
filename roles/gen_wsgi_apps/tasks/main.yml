@@ -1,9 +1,14 @@
 ---
-- name: Make sure gunicorn configuration directory exists.
-  file: dest={{ gunicorn_config }} state=directory
+- name: Make sure gunicorn staging directory exists.
+  file: dest={{ gunicorn_staging }} state=directory
+- name: Make sure nginx staging directory exists.
+  file: dest={{ nginx_staging }} state=directory
 - name: Get list of WSGI apps.
   shell: find "{{ wsgi_apps }}" -mindepth 1 -maxdepth 1 -type d | sed "s|.*/\(.*\)|\1|"
   register: apps
 - name: Generate gunicorn configs.
-  template: src=wsgi_app.config.j2 dest={{ gunicorn_config }}/{{ item[1] }}.conf
+  template: src=gunicorn.conf.j2 dest={{ gunicorn_staging }}/{{ item[1] }}.conf
+  with_indexed_items: apps.stdout_lines
+- name: Generate nginx configs.
+  template: src=nginx.conf.j2 dest={{ nginx_staging }}/{{ item[1] }}.conf
   with_indexed_items: apps.stdout_lines

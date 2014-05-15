@@ -11,7 +11,14 @@
 - name: Install PIP packages.
   pip: name={{ item }}
   with_items: packages.stdout_lines
-- name: Copy gunicorn config.
-  copy: src={{ gunicorn_config }}/ dest=/etc/gunicorn.d/
+- name: Copy gunicorn configs.
+  copy: src={{ gunicorn_staging }}/ dest=/etc/gunicorn.d/
 - name: Restart gunicorn.
   service: name=gunicorn state=restarted enabled=yes
+- name: Copy nginx configs.
+  copy: src={{ nginx_staging }}/ dest=/etc/nginx/sites-available
+- name: Enable nginx configs.
+  file: src=/etc/nginx/sites-available/{{ item | basename }} dest=/etc/nginx/sites-enabled/{{ item | basename }} state=link
+  with_fileglob: "{{ nginx_staging }}/*.conf"
+- name: Restart nginx.
+  service: name=nginx state=restarted enabled=yes
