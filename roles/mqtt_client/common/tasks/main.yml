@@ -1,0 +1,13 @@
+---
+- name: Group by OS.
+  group_by: key={{ ansible_distribution }}
+- name: Install PIP.
+  apt: name=python-pip state=latest
+- name: Install Paho MQTT Python client.
+  pip: name=paho-mqtt
+- name: Copy CA cert.
+  copy: "src={{ ssl_dir }}/mqtt_ca.crt dest=/etc/mosquitto/ca_certificates/"
+- name: Copy client cert.
+  copy: "src={{ ssl_dir }}/mqtt_client.crt dest=/etc/mosquitto/certs/"
+- name: Copy client key.
+  copy: "src={{ ssl_dir }}/mqtt_client.key dest=/etc/mosquitto/certs/"

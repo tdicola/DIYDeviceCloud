@@ -1,0 +1,5 @@
+---
+- name: Ensure mosquitto PPA is available.
+  apt_repository: repo='ppa:mosquitto-dev/mosquitto-ppa' state=present update_cache=yes
+- name: Install mosquitto clients.
+  apt: name=mosquitto-clients state=latest

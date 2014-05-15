@@ -9,3 +9,5 @@
   roles:
   - freedns
   - mqtt_server
+  - mqtt_client/common
+  - mqtt_client/ubuntu

@@ -2,4 +2,14 @@
 - hosts: device
   sudo: yes
   roles:
-  - mqtt_client
+  - mqtt_client/common
+- hosts: Ubuntu
+  gather_facts: no
+  sudo: yes
+  roles:
+  - mqtt_client/ubuntu
+- hosts: Debian
+  gather_facts: no
+  sudo: yes
+  roles:
+  - mqtt_client/debian

@@ -1,0 +1,7 @@
+---
+- name: Install mosquitto apt repository key.
+  apt_key: url=http://repo.mosquitto.org/debian/mosquitto-repo.gpg.key
+- name: Install mosquitto apt repository.
+  apt_repository: repo="deb http://repo.mosquitto.org/debian stable main"
+- name: Install mosquitto clients.
+  apt: name=mosquitto-clients state=latest
