@@ -1,0 +1,42 @@
+---
+# Steps adapted from: http://blog.bobbyallen.me/2013/12/30/using-gmail-with-postfix-as-an-smtp-relay/
+- name: Configure relayhost.
+  debconf: "name=postfix question=postfix/relayhost value={{ smtp_server }} vtype=string"
+- name: Configure mailbox limit.
+  debconf: name=postfix question=postfix/mailbox_limit value=0 vtype=string
+- name: Configure main mailer type.
+  debconf: name=postfix question=postfix/main_mailer_type value='Satellite system' vtype=select
+- name: Configure mailname.
+  debconf: "name=postfix question=postfix/mailname value={{ broker_name }} vtype=string"
+- name: Configure root address.
+  debconf: name=postfix question=postfix/root_address value='' vtype=string
+- name: Configure destinations.
+  debconf: name=postfix question=postfix/destinations value='' vtype=string
+- name: Configure chattr.
+  debconf: name=postfix question=postfix/chattr value=false vtype=boolean
+- name: Configure recipient delim.
+  debconf: name=postfix question=postfix/recipient_delim value='+' vtype=string
+- name: Configure mynetworks.
+  debconf: "name=postfix question=postfix/mynetworks value='127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128' vtype=string"
+- name: Configure protocols.
+  debconf: name=postfix question=postfix/protocols value='all' vtype='select'
+- name: Install postfix.
+  apt: name=postfix state=latest
+- name: Set use TLS yes.
+  lineinfile: dest=/etc/postfix/main.cf line='smtp_use_tls = yes' state=present
+- name: Set SASL auth enable yes.
+  lineinfile: dest=/etc/postfix/main.cf line='smtp_sasl_auth_enable = yes' state=present
+- name: Set SASL password maps.
+  lineinfile: "dest=/etc/postfix/main.cf line='smtp_sasl_password_maps = hash:/etc/postfix/sasl_passwd' state=present"
+- name: Set SASL security option noanonymous.
+  lineinfile: dest=/etc/postfix/main.cf line='smtp_sasl_security_options = noanonymous' state=present
+- name: Set SASL security option noanonymous.
+  lineinfile: dest=/etc/postfix/main.cf line='smtp_sasl_tls_security_options = noanonymous' state=present
+- name: Set sasl_passwd file.
+  template: src=sasl_passwd.j2 dest=/etc/postfix/sasl_passwd owner=postfix group=postfix mode=640
+- name: Configure postfix user to own config directory.
+  file: dest=/etc/postfix owner=postfix group=postfix
+- name: Rebuild sasl_passwd hash.
+  command: postmap /etc/postfix/sasl_passwd
+- name: Restart postfix service.
+  service: name=postfix state=restarted enabled=yes

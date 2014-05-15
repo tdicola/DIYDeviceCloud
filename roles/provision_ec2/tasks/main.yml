@@ -33,6 +33,14 @@
       to_port: 22 
       cidr_ip: 0.0.0.0/0
     - proto: tcp
+      from_port: 80
+      to_port: 80
+      cidr_ip: 0.0.0.0/0
+    - proto: tcp
+      from_port: 443
+      to_port: 443
+      cidr_ip: 0.0.0.0/0
+    - proto: tcp
       from_port: 8883
       to_port: 8883
       cidr_ip: 0.0.0.0/0

@@ -12,3 +12,5 @@
   - mqtt_server
   - mqtt_client/common
   - mqtt_client/ubuntu
+  - web_server
+  - smtp_email

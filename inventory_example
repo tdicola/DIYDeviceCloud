@@ -1,8 +1,8 @@
 # Global configuration.
 [all:vars]
 # Access keys for user with 'power user' access to AWS (i.e. can create instances).
-access_key="YOUR_ACCESS_KEY"
-secret_key="YOUR_SECRET_KEY"
+access_key="YOUR ACCESS KEY"
+secret_key="YOUR SECRET KEY"
 
 # AWS region to use for creating server.
 region="us-west-2"
@@ -15,6 +15,15 @@ broker_name=yourbroker.diydevicecloud.net
 # Common name of MQTT and SSL signing certificates.
 # Set to your name.
 ca_cn="YOUR NAME"
+
+# Email server to use for sending emails from the server.
+smtp_server="YOUR EMAIL SERVER, i.e. smtp.gmail.com"
+
+# Your email address to use for sending emails.
+smtp_email="YOUR EMAIL ACCOUNT NAME, i.e. foo@gmail.com"
+
+# Your email account password, used to authenticate with the SMTP server.
+smtp_password="YOUR EMAIL PASSWORD"
 
 # FreeDNS.afraid.org update URL.
 # Optional, use this if you want to use a dynamic DNS subdomain from freedns.afraid.org.
