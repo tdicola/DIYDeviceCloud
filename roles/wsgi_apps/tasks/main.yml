@@ -15,6 +15,10 @@
   copy: src={{ gunicorn_staging }}/ dest=/etc/gunicorn.d/
 - name: Restart gunicorn.
   service: name=gunicorn state=restarted enabled=yes
+- name: Install passlib.
+  pip: name=passlib
+- name: Set htpasswd file.
+  htpasswd: path=/etc/nginx/passwdfile name={{ web_username }} password={{ web_password }} owner=root group=www-data mode=640
 - name: Copy nginx configs.
   copy: src={{ nginx_staging }}/ dest=/etc/nginx/sites-available/
 - name: Enable nginx configs.
