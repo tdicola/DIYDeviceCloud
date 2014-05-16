@@ -10,5 +10,4 @@
   template: src=gunicorn.conf.j2 dest={{ gunicorn_staging }}/{{ item[1] }}.conf
   with_indexed_items: apps.stdout_lines
 - name: Generate nginx configs.
-  template: src=nginx.conf.j2 dest={{ nginx_staging }}/{{ item[1] }}.conf
-  with_indexed_items: apps.stdout_lines
+  template: src=nginx.default.j2 dest={{ nginx_staging }}/default

@@ -1,3 +1,9 @@
 ---
 - name: Install nginx.
   apt: name=nginx state=latest
+- name: Create SSL directory.
+  file: dest=/etc/nginx/ssl state=directory
+- name: Copy SSL cert.
+  copy: src={{ ssl_dir }}/web.crt dest=/etc/nginx/ssl/web.crt
+- name: Copy SSL cert key.
+  copy: src={{ ssl_dir }}/web.key dest=/etc/nginx/ssl/web.key
