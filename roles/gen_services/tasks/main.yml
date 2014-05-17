@@ -1,0 +1,9 @@
+---
+- name: Make sure supervisor staging directory exists.
+  file: dest={{ supervisor_staging }} state=directory
+- name: Get list of services.
+  shell: find "{{ device_services }}" -mindepth 1 -maxdepth 1 -type d | sed "s|.*/\(.*\)|\1|"
+  register: services
+- name: Generate supervisor configs.
+  template: src=supervisor.conf.j2 dest={{ supervisor_staging }}/{{ item }}.conf
+  with_items: services.stdout_lines

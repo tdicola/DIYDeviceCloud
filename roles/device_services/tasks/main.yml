@@ -1,0 +1,15 @@
+---
+- name: Install supervisor.
+  apt: name=supervisor state=latest
+- name: Create device services root.
+  file: dest={{ device_services_root }} state=directory
+- name: Synch device services.
+  synchronize: src={{ device_services }}/{{ item | trim }} dest={{ device_services_root }} recursive=yes mode=push delete=yes
+  with_items: services.split(',')
+  when: services is defined
+- name: Copy device configs.
+  copy: src={{ supervisor_staging }}/{{ item | trim }}.conf dest=/etc/supervisor/conf.d/
+  with_items: services.split(',')
+  when: services is defined
+- name: Restart supervisor.
+  service: name=supervisor state=restarted enabled=yes

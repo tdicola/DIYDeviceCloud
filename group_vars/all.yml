@@ -19,3 +19,10 @@ gunicorn_staging: "{{ staging_root }}/gunicorn.d"
 # Location to read nginx configuration files.
 # These will be copied to the /etc/nginx/sites-available/ location and linked to sites-enabled.
 nginx_staging: "{{ staging_root }}/nginx_sites"
+# Location to read service sources.
+device_services: "{{ inventory_dir }}/device_services"
+# Location to read supervisor configuration files.
+# These will be copied to the /etc/supervisor/conf.d/ location.
+supervisor_staging: "{{ staging_root }}/supervisor"
+# Location to store services on device.
+device_services_root: /usr/local/share/device_services

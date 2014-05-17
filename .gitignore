@@ -6,3 +6,5 @@ security/*
 inventory
 staging/*
 wsgi_apps/*
+device_services/*
+

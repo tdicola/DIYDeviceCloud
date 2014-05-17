@@ -1,0 +1,6 @@
+[program:{{ item }}]
+directory = {{ device_services_root }}/{{ item }}
+command = python -u "{{ device_services_root }}/{{ item }}/{{ item }}.py"
+autostart = true
+autorestart = unexpected
+startsecs = 10

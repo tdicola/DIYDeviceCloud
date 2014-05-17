@@ -1,6 +1,6 @@
 ---
 - hosts: local
-  gather_facts: False
+  gather_facts: no
   roles:
   - provision_ec2
   - gen_mqtt_certs

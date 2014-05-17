@@ -1,4 +1,7 @@
 ---
+- hosts: local
+  roles:
+  - gen_services
 - hosts: device
   sudo: yes
   roles:
@@ -13,3 +16,8 @@
   sudo: yes
   roles:
   - mqtt_client/debian
+- hosts: device
+  gather_facts: no
+  sudo: yes
+  roles:
+  - device_services
