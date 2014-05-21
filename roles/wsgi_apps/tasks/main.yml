@@ -1,7 +1,7 @@
 ---
 - name: Install gunicorn.
   apt: name=gunicorn state=latest
-- name: Synch WSGI apps.
+- name: Sync WSGI apps.
   synchronize: src={{ wsgi_apps }}/ dest={{ wsgi_server_root }}/ recursive=yes mode=push delete=yes
 - name: Install python PIP.
   apt: name=python-pip state=latest

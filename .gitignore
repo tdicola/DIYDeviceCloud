@@ -4,6 +4,7 @@ security/*
 *.pem
 .srl
 inventory
+inventory_demo
 staging/*
 wsgi_apps/*
 device_services/*

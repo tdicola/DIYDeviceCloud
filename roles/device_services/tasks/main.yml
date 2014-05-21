@@ -3,7 +3,7 @@
   apt: name=supervisor state=latest
 - name: Create device services root.
   file: dest={{ device_services_root }} state=directory
-- name: Synch device services.
+- name: Sync device services.
   synchronize: src={{ device_services }}/{{ item | trim }} dest={{ device_services_root }} recursive=yes mode=push delete=yes
   with_items: services.split(',')
   when: services is defined
